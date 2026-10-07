@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Mónica Vasco — experimental and behavioral economics, social networks, and lab-in-the-field research. Postdoctoral researcher at LABEL, USC.">
+  <meta name="theme-color" content="#194c4e">
+  <title>Mónica Vasco | Experimental Economics & Social Networks</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="content.js" defer></script>
+  <script src="site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#about">Skip to content / Ir al contenido</a>
+  <header class="header">
+    <a class="wordmark" href="#about">Mónica Vasco<span class="wordmark-dot">.</span></a>
+    <nav aria-label="Main navigation" id="main-nav">
+      <a href="#about" data-nav="0">About</a><a href="#research" data-nav="1">Research</a>
+      <a href="#fieldwork" data-nav="2">Fieldwork</a><a href="#teaching" data-nav="3">Teaching</a><a href="#contact" data-nav="4">Contact</a>
+    </nav>
+    <div class="language" role="group" aria-label="Language / Idioma">
+      <button type="button" data-language="en" aria-pressed="true">EN</button><span aria-hidden="true">/</span><button type="button" data-language="es" aria-pressed="false">ES</button>
+    </div>
+  </header>
+  <main>
+    <section id="about" class="hero section-width">
+      <div class="hero-copy">
+        <p class="eyebrow" data-text="discipline">Experimental & behavioral economics</p>
+        <h1 data-html="headline">Learning and decisions<br>in a connected world.</h1>
+        <p class="affiliation" data-text="affiliation">Postdoctoral researcher · LABEL · University of Southern California</p>
+        <p class="intro" data-text="bio">I study how people learn, coordinate, and make decisions in social networks, with a particular focus on children and adolescents. My research combines lab-in-the-field experiments with social network analysis.</p>
+        <p class="hero-detail" data-text="bio2"></p>
+        <div class="hero-actions"><a class="button primary" href="#research" data-text="research">Explore my research</a><a class="button text-button" id="cv-link" href="https://sites.google.com/view/monicavasco/cv" target="_blank" rel="noopener" data-text="cv">View CV</a></div>
+      </div>
+      <figure class="portrait">
+        <div class="portrait-placeholder" id="portrait-placeholder" aria-hidden="true"><span>MV</span><div class="portrait-rule"></div></div>
+        <img id="portrait-image" hidden alt="Mónica Vasco">
+        <figcaption><span data-text="portrait">Portrait photograph</span><span class="caption-sub" data-text="photoPending">Photograph to be added</span></figcaption>
+      </figure>
+    </section>
+    <section class="featured section-width" aria-labelledby="featured-title">
+      <div class="section-heading"><p class="eyebrow" data-text="featuredLabel">A closer look</p><h2 id="featured-title" data-text="featured">Selected research</h2><p data-text="featuredIntro"></p></div>
+      <div id="featured-list" class="featured-grid"></div>
+    </section>
+    <section id="research" class="research section-width" aria-labelledby="research-title">
+      <div class="section-heading"><p class="eyebrow" data-text="researchLabel">Research agenda</p><h2 id="research-title" data-text="researchTitle">Papers & ongoing projects</h2><p data-text="researchIntro"></p></div>
+      <div class="filters" role="group" aria-label="Filter research / Filtrar investigación"><button type="button" data-filter="all" aria-pressed="true">All research</button><button type="button" data-filter="published" aria-pressed="false">Published papers</button><button type="button" data-filter="working" aria-pressed="false">Working papers</button><button type="button" data-filter="progress" aria-pressed="false">Work in progress</button></div>
+      <p class="sr-only" id="research-results" aria-live="polite"></p>
+      <div id="paper-list"></div>
+    </section>
+    <section id="fieldwork" class="fieldwork" aria-labelledby="fieldwork-title">
+      <div class="section-width">
+        <div class="section-heading"><p class="eyebrow" data-text="fieldLabel">Beyond the laboratory</p><h2 id="fieldwork-title" data-text="fieldTitle">Experiments in the field</h2><p data-text="fieldIntro"></p></div>
+        <div class="carousel" id="carousel" role="region" aria-roledescription="carousel" aria-label="Fieldwork photo carousel" tabindex="0">
+          <figure class="slide"><div class="photo-stage"><img id="field-photo" hidden alt=""><div id="photo-placeholder" class="photo-placeholder"><span class="photo-placeholder-label" data-text="photoPending">Photograph to be added</span><span class="photo-place" id="photo-place"></span><span class="photo-subject" id="photo-subject"></span></div></div><figcaption class="slide-caption"><div><span class="eyebrow" id="slide-location"></span><h3 id="slide-topic"></h3></div><p id="slide-description"></p></figcaption></figure>
+          <div class="carousel-controls"><div class="slide-dots" id="slide-dots"></div><div class="carousel-arrows"><span id="slide-count" aria-live="polite"></span><button type="button" id="photo-prev" aria-label="Previous photograph">←</button><button type="button" id="photo-next" aria-label="Next photograph">→</button></div></div>
+        </div>
+      </div>
+    </section>
+    <section id="teaching" class="teaching section-width" aria-labelledby="teaching-title">
+      <div class="section-heading"><p class="eyebrow" data-text="teachingLabel">Teaching</p><h2 id="teaching-title" data-text="teachingTitle">Research-informed teaching</h2><p data-text="teachingIntro"></p></div>
+      <div id="teaching-list" class="teaching-list"></div>
+      <p class="teaching-institution">Universidad Loyola Andalucía</p>
+    </section>
+    <section class="background section-width" aria-labelledby="background-title">
+      <div><p class="eyebrow" data-text="academicLabel">Academic background</p><h2 id="background-title" data-text="backgroundTitle">From Córdoba to Los Angeles</h2></div>
+      <div><p data-text="background"></p><h3 data-text="service">Academic activities & applied research</h3><p data-text="serviceText"></p><a href="https://online.flippingbook.com/view/529605865/" target="_blank" rel="noopener">Cotec: ¿Toman los profesores decisiones sesgadas? ↗</a></div>
+    </section>
+    <section id="contact" class="contact" aria-labelledby="contact-title"><div class="section-width contact-inner"><div><p class="eyebrow" data-text="contactLabel">Get in touch</p><h2 id="contact-title" data-text="contactTitle">Let’s connect.</h2><p data-text="contactText"></p></div><div class="contact-links"><a id="email-link" href="mailto:movaru09@gmail.com">movaru09@gmail.com ↗</a><a id="orcid-link" href="https://orcid.org/0000-0002-3246-9984" target="_blank" rel="noopener">ORCID ↗</a></div></div></section>
+  </main>
+  <footer class="section-width"><span>Mónica Vasco</span><span data-text="footer">Experimental economics · Social networks · Field experiments</span></footer>
+  <noscript><p class="section-width">Enable JavaScript to view the research list and photo carousel. / Activa JavaScript para ver los artículos y el carrusel.</p></noscript>
+</body>
+</html>
