@@ -398,7 +398,10 @@ window.SITE_CONTENT = {
         "en": "Missillac, France",
         "es": "Missillac, Francia"
       },
-      "role": "coorganizer"
+      "roles": [
+        "coorganizer", 
+        "oral"
+      ]
     },
     {
       "id": "weai-2026",
@@ -407,7 +410,10 @@ window.SITE_CONTENT = {
       "location": {
         "en": "Denver, Colorado, USA",
         "es": "Denver, Colorado, EE. UU."
-      }
+      },
+      "roles": [
+        "oral"
+      ]
     },
     {
       "id": "networks-2026",
@@ -416,7 +422,10 @@ window.SITE_CONTENT = {
       "location": {
         "en": "Miami, Florida, USA",
         "es": "Miami, Florida, EE. UU."
-      }
+      },
+      "roles": [
+        "oral"
+      ]
     },
     {
       "id": "lax-2025",
@@ -425,7 +434,10 @@ window.SITE_CONTENT = {
       "location": {
         "en": "Los Angeles, California, USA",
         "es": "Los Ángeles, California, EE. UU."
-      }
+      },
+      "roles": [
+        "oral"
+      ]
     },
     {
       "id": "esa-2025",
@@ -434,7 +446,10 @@ window.SITE_CONTENT = {
       "location": {
         "en": "Tucson, Arizona, USA",
         "es": "Tucson, Arizona, EE. UU."
-      }
+      },
+      "roles": [
+        "oral"
+      ]
     },
     {
       "id": "bogota-2025",
@@ -443,7 +458,10 @@ window.SITE_CONTENT = {
       "location": {
         "en": "Bogotá, Colombia",
         "es": "Bogotá, Colombia"
-      }
+      },
+      "roles": [
+        "oral"
+      ]
     },
     {
       "id": "esa-2024",
@@ -452,7 +470,10 @@ window.SITE_CONTENT = {
       "location": {
         "en": "Columbus, Ohio, USA",
         "es": "Columbus, Ohio, EE. UU."
-      }
+      },
+      "roles": [
+        "oral"
+      ]
     },
     {
       "id": "lax-2024",
@@ -462,7 +483,10 @@ window.SITE_CONTENT = {
       "location": {
         "en": "California, USA",
         "es": "California, EE. UU."
-      }
+      },
+      "roles": [
+        "poster"
+      ]
     },
     {
       "id": "madrid-2024",
@@ -472,7 +496,10 @@ window.SITE_CONTENT = {
       "location": {
         "en": "Madrid, Spain",
         "es": "Madrid, España"
-      }
+      },
+      "roles": [
+        "oral"
+      ]
     },
     {
       "id": "seet-2024",
@@ -481,7 +508,10 @@ window.SITE_CONTENT = {
       "location": {
         "en": "Málaga, Spain",
         "es": "Málaga, España"
-      }
+      },
+      "roles": [
+        "oral"
+      ]
     },
     {
       "id": "esa-2023",
@@ -491,7 +521,10 @@ window.SITE_CONTENT = {
       "location": {
         "en": "Exeter, UK",
         "es": "Exeter, Reino Unido"
-      }
+      },
+      "roles": [
+        "oral"
+      ]
     },
     {
       "id": "iarep-2023",
@@ -501,7 +534,10 @@ window.SITE_CONTENT = {
       "location": {
         "en": "Nice, France",
         "es": "Niza, Francia"
-      }
+      },
+      "roles": [
+        "oral"
+      ]
     },
     {
       "id": "graduate-2023",
@@ -511,7 +547,10 @@ window.SITE_CONTENT = {
       "location": {
         "en": "Orange, USA",
         "es": "Orange, EE. UU."
-      }
+      },
+      "roles": [
+        "oral"
+      ]
     },
     {
       "id": "ajicede-2022",
@@ -521,7 +560,10 @@ window.SITE_CONTENT = {
       "location": {
         "en": "Córdoba, Spain",
         "es": "Córdoba, España"
-      }
+      },
+      "roles": [
+        "oral"
+      ]
     },
     {
       "id": "human-capital-2022",
@@ -531,7 +573,10 @@ window.SITE_CONTENT = {
       "location": {
         "en": "Córdoba, Spain",
         "es": "Córdoba, España"
-      }
+      },
+      "roles": [
+        "oral"
+      ]
     },
     {
       "id": "e3c-2021",
@@ -541,7 +586,10 @@ window.SITE_CONTENT = {
       "location": {
         "en": "Balearic Islands, Spain",
         "es": "Islas Baleares, España"
-      }
+      },
+      "roles": [
+        "oral"
+      ]
     }
   ],
   "academicPhotos": [
@@ -592,6 +640,45 @@ window.SITE_CONTENT = {
       "alt": {
         "en": "A conference presentation at the SEET meeting",
         "es": "Una presentación durante el encuentro SEET"
+      }
+    },
+    {
+      "title": "Loyola Behavioral Lab",
+      "location": {
+        "en": "Loyola Andalucía University",
+        "es": "Universidad Loyola Andalucía"
+      },
+      "image": "photos/behavlab.jpg",
+      "alt": {
+        "en": "Academic activity at Loyola Behavioral Lab",
+        "es": "Actividad académica en Loyola Behavioral Lab"
+      }
+    },
+    {
+      "event": "esa-2023",
+      "image": "photos/conference_exeter2.jpg",
+      "alt": {
+        "en": "Academic activity at the ESA conference in Exeter",
+        "es": "Actividad académica durante la conferencia ESA en Exeter"
+      }
+    },
+    {
+      "title": {
+        "en": "Research collaboration with Fundación Cotec",
+        "es": "Colaboración investigadora con Fundación Cotec"
+      },
+      "image": "photos/cotec1.jpg",
+      "alt": {
+        "en": "A group photograph related to the collaboration with Fundación Cotec",
+        "es": "Una fotografía de grupo relacionada con la colaboración con Fundación Cotec"
+      }
+    },
+    {
+      "event": "esa-2025",
+      "image": "photos/conference_tucson.jpg",
+      "alt": {
+        "en": "A presentation at the ESA conference in Tucson",
+        "es": "Una presentación durante la conferencia ESA en Tucson"
       }
     }
   ],
