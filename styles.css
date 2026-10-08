@@ -49,4 +49,7 @@
 .photo-stage img,.academic-photo-stage img{object-fit:cover;position:absolute;inset:0}
 .portrait img,.portrait-placeholder{aspect-ratio:4/5}
 @media(max-width:760px){.photo-stage,.academic-photo-stage{height:auto;aspect-ratio:16/9}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.affiliation a{text-decoration:underline;text-underline-offset:3px}
+.photo-stage img{transition:opacity .45s ease}
+.photo-stage .carousel-outgoing{z-index:2;pointer-events:none}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.photo-stage img{transition:none}}

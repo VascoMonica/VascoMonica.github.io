@@ -8,17 +8,49 @@
   let slide = 0;
   let academicSlide = 0;
   const players = {field:null,academic:null};
+  const photoStates = new WeakMap();
   const local = value => typeof value === 'object' ? value[language] : value;
   const node = (tag, className, text) => {const el = document.createElement(tag); if(className) el.className = className; if(text !== undefined) el.textContent = text; return el;};
-  function updatePhoto(image,placeholder,path,description,onStatus=()=>{}) {
+  function updatePhoto(image,placeholder,path,description,position='50% 50%') {
     image.alt=description||'';
-    const setState=loaded=>{image.hidden=!loaded;placeholder.hidden=loaded;onStatus(loaded);};
-    image.onload=()=>setState(true);
-    image.onerror=()=>setState(false);
-    if(!path){image.removeAttribute('src');setState(false);return;}
-    if(image.getAttribute('src')===path && image.complete){setState(image.naturalWidth>0);return;}
-    image.hidden=false;placeholder.hidden=false;onStatus(false);
-    if(image.getAttribute('src')!==path) image.src=path;
+    const setState=loaded=>{image.hidden=!loaded;placeholder.hidden=loaded;};
+    if(path && image.getAttribute('src')===path){
+      image.style.objectPosition=position;
+      if(image.complete) setState(image.naturalWidth>0);
+      return;
+    }
+    const stage=image.parentElement;
+    const layers=Array.from(stage.querySelectorAll('.carousel-outgoing'));
+    const source=image.complete && image.naturalWidth>0?image:layers[0];
+    const fade=Boolean(path && source && stage.classList.contains('photo-stage') && !window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    const outgoing=fade?source.cloneNode(false):null;
+    layers.forEach(layer=>layer.remove());
+    const state={outgoing};photoStates.set(image,state);
+    const current=()=>photoStates.get(image)===state;
+    if(outgoing){
+      outgoing.removeAttribute('id');outgoing.alt='';outgoing.hidden=false;
+      outgoing.setAttribute('aria-hidden','true');outgoing.classList.add('carousel-outgoing');
+      outgoing.style.opacity='1';stage.append(outgoing);
+    }
+    image.style.objectPosition=position;
+    image.style.opacity=outgoing?'0':'1';
+    image.onload=()=>{
+      if(!current())return;
+      setState(true);
+      if(!outgoing){image.style.opacity='1';return;}
+      window.requestAnimationFrame(()=>window.requestAnimationFrame(()=>{
+        if(!current())return;
+        image.style.opacity='1';outgoing.style.opacity='0';
+        window.setTimeout(()=>outgoing.remove(),500);
+      }));
+    };
+    image.onerror=()=>{
+      if(!current())return;
+      if(outgoing)outgoing.remove();
+      image.style.opacity='1';setState(false);
+    };
+    if(!path){if(outgoing)outgoing.remove();image.removeAttribute('src');setState(false);return;}
+    image.hidden=false;placeholder.hidden=Boolean(outgoing);image.src=path;
   }
   function renderFixedPhotos() {
     document.querySelectorAll('[data-fixed-photo]').forEach(figure=>{
@@ -31,10 +63,9 @@
         frame.append(image,placeholder);figure.append(frame,node('figcaption'));
       }
       figure.querySelector('figcaption').textContent=local(photo.caption);
-      figure.querySelector('img').style.objectPosition=photo.position||'50% 50%';
       const placeholder=figure.querySelector('.fixed-photo-placeholder');
       placeholder.textContent=local(photo.caption);
-      updatePhoto(figure.querySelector('img'),placeholder,photo.image,local(photo.alt));
+      updatePhoto(figure.querySelector('img'),placeholder,photo.image,local(photo.alt),photo.position);
     });
   }
   function createAutoplay(carouselId,buttonId,countId,advance) {
@@ -52,13 +83,14 @@
     }
     function updateTimer(){
       if(timer!==null){window.clearInterval(timer);timer=null;}
-      if(enabled && inView && document.visibilityState!=='hidden') timer=window.setInterval(()=>advance(1,false),6000);
+      if(enabled && inView && document.visibilityState!=='hidden') timer=window.setInterval(()=>advance(1,false),data.slideshowInterval||5000);
     }
     function pause(){enabled=false;repaint();updateTimer();}
     button.addEventListener('click',()=>{enabled=!enabled;repaint();updateTimer();});
     carousel.addEventListener('focusin',event=>{if(event.target!==button)pause();});
     document.addEventListener('visibilitychange',updateTimer);
-    motion.addEventListener('change',()=>{if(motion.matches)pause();});
+    const motionChange=()=>{if(motion.matches)pause();};
+    if(motion.addEventListener)motion.addEventListener('change',motionChange);else motion.addListener(motionChange);
     if('IntersectionObserver' in window){
       const observer=new IntersectionObserver(entries=>{inView=entries.some(entry=>entry.isIntersecting && entry.intersectionRatio>=.15);updateTimer();},{threshold:[0,.15]});
       observer.observe(carousel);
@@ -108,8 +140,7 @@
   function renderSlide() {
     const photo=data.photos[slide];const texts=data.languages[language];
     const image=document.getElementById('field-photo');
-    image.style.objectPosition=photo.position||'50% 50%';
-    updatePhoto(image,document.getElementById('photo-placeholder'),photo.image,local(photo.alt));
+    updatePhoto(image,document.getElementById('photo-placeholder'),photo.image,local(photo.alt),photo.position);
     document.getElementById('photo-place').textContent=local(photo.location);
     document.getElementById('photo-subject').textContent=local(photo.topic);
     document.getElementById('slide-location').textContent=local(photo.location);
@@ -135,9 +166,8 @@
     const event=data.conferences.find(item=>item.id===photo.event);
     const texts=data.languages[language];
     const image=document.getElementById('academic-photo');
-    image.style.objectPosition=photo.position||'50% 50%';
     const placeholder=document.getElementById('academic-placeholder');
-    updatePhoto(image,placeholder,photo.image,local(photo.alt));
+    updatePhoto(image,placeholder,photo.image,local(photo.alt),photo.position);
     document.getElementById('academic-placeholder-title').textContent=event.title;
     document.getElementById('academic-placeholder-location').textContent=conferencePlace(event);
     document.getElementById('academic-slide-date').textContent=conferenceDate(event);
@@ -186,11 +216,12 @@
     document.getElementById('main-nav').setAttribute('aria-label',language==='es'?'Navegación principal':'Main navigation');
     document.querySelectorAll('[data-language]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.language===language)));
     document.getElementById('cv-link').href=data.cv;
+    document.getElementById('label-link').href=data.labelUrl;
     document.getElementById('email-link').href='mailto:'+data.email;
     document.getElementById('email-link').textContent=data.email+' ↗';
     document.getElementById('orcid-link').href=data.orcid;
     const portrait=document.getElementById('portrait-image');
-    updatePhoto(portrait,document.getElementById('portrait-placeholder'),data.portrait,'Mónica Vasco',loaded=>{document.querySelector('.portrait .caption-sub').hidden=loaded;});
+    updatePhoto(portrait,document.getElementById('portrait-placeholder'),data.portrait,'Mónica Vasco');
     renderFixedPhotos();renderFeatured();renderPapers();renderSlide();renderActivities();
     players.field?.render();players.academic?.render();
     const teaching=document.getElementById('teaching-list');teaching.replaceChildren();

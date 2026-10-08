@@ -2,7 +2,7 @@
 window.SITE_CONTENT = {
   "email": "movaru09@gmail.com",
   "orcid": "https://orcid.org/0000-0002-3246-9984",
-  "cv": "https://sites.google.com/view/monicavasco/cv",
+  "cv": "cv.pdf",
   "portrait": "photos/portrait.JPG",
   "languages": {
     "en": {
@@ -76,7 +76,8 @@ window.SITE_CONTENT = {
       "photoPlay": "Play",
       "photoPause": "Pause",
       "photoPlayLabel": "Start the photo slideshow",
-      "photoPauseLabel": "Pause the photo slideshow"
+      "photoPauseLabel": "Pause the photo slideshow",
+      "positionTitle": "Postdoctoral researcher"
     },
     "es": {
       "nav": [
@@ -149,7 +150,8 @@ window.SITE_CONTENT = {
       "photoPlay": "Reproducir",
       "photoPause": "Pausar",
       "photoPlayLabel": "Iniciar la presentación de fotografías",
-      "photoPauseLabel": "Pausar la presentación de fotografías"
+      "photoPauseLabel": "Pausar la presentación de fotografías",
+      "positionTitle": "Investigadora postdoctoral"
     }
   },
   "featured": [
@@ -638,5 +640,7 @@ window.SITE_CONTENT = {
         "es": "Una sesión experimental con alumnos en un colegio en España"
       }
     }
-  }
+  },
+  "labelUrl": "https://label-laboratory.org/",
+  "slideshowInterval": 5000
 };
