@@ -16,7 +16,7 @@ window.SITE_CONTENT = {
       ],
       "discipline": "Experimental & behavioral economics",
       "affiliation": "Postdoctoral researcher · LABEL · University of Southern California",
-      "headline": "Learning and decisions<br>in a connected world.",
+      "headline": "Social networks, learning and decision-making.",
       "bio": "I am a postdoctoral researcher at the University of Southern California, where I work at LABEL.",
       "bio2": "I hold a PhD in Data Science with distinction from Loyola Andalucía University (July 2024). The Spanish government supported my doctoral research with an FPU fellowship. I obtained an MSc in Economics at the University of the Basque Country (2022) and an MRes in Data Analysis at Loyola (2021).",
       "bio3": "My research focuses on experimental and behavioral economics, particularly social networks, learning, and decision-making. I combine lab-in-the-field experiments with social network analysis, with a particular interest in children and adolescents. My experimental work spans schools and university settings in Spain, Los Angeles, and Madagascar.",
@@ -36,7 +36,7 @@ window.SITE_CONTENT = {
         "Work in progress"
       ],
       "fieldLabel": "Beyond the laboratory",
-      "fieldTitle": "Experiments in the field",
+      "fieldTitle": "Lab-in-the-field experiments",
       "fieldIntro": "Designing and implementing experiments with schools, research teams, and local partners.",
       "photoPending": "Photograph to be added",
       "photoPrev": "Previous photograph",
@@ -44,28 +44,28 @@ window.SITE_CONTENT = {
       "photoRegion": "Fieldwork photo carousel",
       "photoGo": "Show photograph",
       "photoOf": "of",
-      "teachingLabel": "Teaching",
-      "teachingTitle": "Research-informed teaching",
+      "teachingLabel": "",
+      "teachingTitle": "Teaching",
       "teachingIntro": "University teaching experience in English and Spanish, as instructor of record and teaching assistant.",
       "instructor": "Instructor of record",
       "assistant": "Teaching assistant",
       "english": "English",
       "spanish": "Spanish",
       "academicLabel": "Academic background",
-      "backgroundTitle": "From Córdoba to Los Angeles",
+      "backgroundTitle": "",
       "background": "I earned my PhD in Data Science at Universidad Loyola Andalucía in July 2024, supported by an FPU doctoral fellowship. My training also includes an MSc in Economics at the University of the Basque Country, a research methods master’s degree, and degrees in Business Administration and Law. During my doctorate, I completed a research visit at the University of Essex.",
       "service": "Academic activities & applied research",
       "serviceText": "Co-organizer of the Borchard Colloquium, Missillac, France (2026). Research collaboration with Fundación Cotec on teachers’ decision-making and biases.",
       "activitiesLabel": "Academic exchange",
       "activitiesTitle": "Conferences & workshops",
-      "activitiesIntro": "Conferences and workshops throughout my research career, including co-organizing the Borchard Colloquium in July 2026.",
+      "activitiesIntro": "Conferences and workshops throughout my research career",
       "activitiesRegion": "Academic activities photo carousel",
       "activitiesAll": "All conferences and workshops",
       "coorganizer": "Co-organizer",
       "contactLabel": "Get in touch",
       "contactTitle": "Let’s connect.",
-      "contactText": "I welcome conversations about research collaborations and research and teaching opportunities in Spain.",
-      "footer": "Experimental economics · Social networks · Field experiments",
+      "contactText": "I’m interested in developing new research collaborations and exploring opportunities in research and teaching. If you have a project in mind or think we could work together, I’d be happy to hear from you.",
+      "footer": "Behavioral economics · Field experiments · Social networks · Gender differences",
       "paperLink": "Read paper",
       "paperNote": "Project in progress",
       "groupHeadings": [
@@ -91,11 +91,12 @@ window.SITE_CONTENT = {
       ],
       "discipline": "Economía experimental y del comportamiento",
       "affiliation": "Investigadora postdoctoral · LABEL · University of Southern California",
-      "headline": "Aprendizaje y decisiones<br>en un mundo conectado.",
-      "bio": "Estudio cómo las personas aprenden, se coordinan y toman decisiones en redes sociales, con especial atención a niños y adolescentes. Mi investigación combina experimentos de laboratorio en campo con análisis de redes sociales.",
-      "bio2": "En proyectos colaborativos, participo en el diseño e implementación experimental, la coordinación del trabajo de campo, el análisis de datos y la escritura académica. Mi experiencia experimental abarca España, Los Ángeles y Madagascar.",
+      "headline": "Redes sociales, aprendizaje y toma de decisiones.",
+      "bio": "Soy investigadora postdoctoral en la University of Southern California (USC), donde trabajo en LABEL.",
+      "bio2": "Soy doctora en Ciencia de Datos con distinción por la Universidad Loyola Andalucía (julio de 2024). Mi investigación doctoral fue financiada por el Gobierno de España mediante una beca FPU. Obtuve un máster en Economía en la Universidad del País Vasco (2022) y un máster de investigación en Análisis de Datos en Loyola (2021).",
+      "bio3": "Mi investigación se centra en la economía experimental y del comportamiento, especialmente en las redes sociales, el aprendizaje y la toma de decisiones. Combino experimentos de laboratorio en campo con análisis de redes sociales, con especial interés en niños y adolescentes. Mi trabajo experimental incluye proyectos en colegios y entornos universitarios en España, Los Ángeles y Madagascar.",
       "cv": "Ver CV",
-      "research": "Explorar mi investigación",
+      "research": "Mi investigación",
       "portrait": "Fotografía de retrato",
       "featuredLabel": "En detalle",
       "featured": "Investigación destacada",
@@ -111,35 +112,35 @@ window.SITE_CONTENT = {
       ],
       "fieldLabel": "Más allá del laboratorio",
       "fieldTitle": "Experimentos en campo",
-      "fieldIntro": "Diseño e implementación de experimentos con colegios, equipos de investigación y colaboradores locales.",
+      "fieldIntro": "Diseño e implementación de experimentos con colegios, equipos de investigación y colaboradores locales (Lab-in-the-field experiments).",
       "photoPending": "Fotografía pendiente",
       "photoPrev": "Fotografía anterior",
       "photoNext": "Fotografía siguiente",
       "photoRegion": "Carrusel de fotografías del trabajo de campo",
       "photoGo": "Mostrar fotografía",
       "photoOf": "de",
-      "teachingLabel": "Docencia",
-      "teachingTitle": "Docencia vinculada a la investigación",
-      "teachingIntro": "Experiencia docente universitaria en inglés y español, como responsable de asignatura y ayudante de docencia.",
+      "teachingLabel": "",
+      "teachingTitle": "Docencia",
+      "teachingIntro": "Experiencia docente universitaria en inglés y español, como responsable de asignatura y ayudante.",
       "instructor": "Responsable de asignatura",
-      "assistant": "Ayudante de docencia",
+      "assistant": "Ayudante de prácticas",
       "english": "Inglés",
       "spanish": "Español",
       "academicLabel": "Trayectoria académica",
-      "backgroundTitle": "De Córdoba a Los Ángeles",
+      "backgroundTitle": "",
       "background": "Me doctoré en Data Science en la Universidad Loyola Andalucía en julio de 2024, con una beca FPU. Mi formación incluye un máster en Economía en la Universidad del País Vasco, un máster en métodos de investigación y los grados en ADE y Derecho. Durante el doctorado realicé una estancia de investigación en la University of Essex.",
       "service": "Actividad académica e investigación aplicada",
       "serviceText": "Coorganizadora del Borchard Colloquium, Missillac, Francia (2026). Colaboración investigadora con Fundación Cotec sobre toma de decisiones y sesgos del profesorado.",
       "activitiesLabel": "Intercambio académico",
       "activitiesTitle": "Conferencias y workshops",
-      "activitiesIntro": "Conferencias y workshops a lo largo de mi trayectoria investigadora, incluida la coorganización del Borchard Colloquium en julio de 2026.",
+      "activitiesIntro": "Conferencias y workshops a lo largo de mi trayectoria investigadora",
       "activitiesRegion": "Carrusel de fotografías de actividad académica",
       "activitiesAll": "Todas las conferencias y workshops",
       "coorganizer": "Coorganizadora",
       "contactLabel": "Contacto",
       "contactTitle": "Hablemos.",
-      "contactText": "Estoy interesada en colaboraciones de investigación y oportunidades de investigación y docencia en España.",
-      "footer": "Economía experimental · Redes sociales · Experimentos de campo",
+      "contactText": "Me interesa desarrollar nuevas colaboraciones y explorar oportunidades de investigación y docencia. Si tienes un proyecto en mente o crees que podemos trabajar juntos, estaré encantada de que me escribas.",
+      "footer": "Economía conductual · Experimentos de campo · Redes sociales · Diferencias de género",
       "paperLink": "Leer artículo",
       "paperNote": "Proyecto en curso",
       "groupHeadings": [
@@ -164,7 +165,7 @@ window.SITE_CONTENT = {
     },
     {
       "id": "perception",
-      "title": "Perception of social network relationships among adolescents",
+      "title": "Seeing less than there is: Misperceptions of social network structure",
       "en": "Studying how adolescents perceive the social relationships around them.",
       "es": "Estudiar cómo los adolescentes perciben las relaciones sociales de su entorno."
     }
@@ -174,7 +175,7 @@ window.SITE_CONTENT = {
       "category": "published",
       "year": "2025",
       "title": "Economic preferences and cognitive abilities among teenagers in Spain",
-      "authors": "M. Vasco et al.",
+      "authors": "M. Vasco, A. Alfonso, A. Arenas, A. Cabrales, J. A. Cuesta, A. M. Espín, M. P. Espinosa, T. García-Muñoz, À. Izquierdo Nofuentes, D. Jorrat, J. Kovářík, P. Lomas, A. C. Martínez-Estudillo, D. Montolio, M. del P. Ramos-Sosa, P. Román, A. Sánchez, M. J. Vázquez-De Francisco & P. Brañas-Garza",
       "venue": "Scientific Data, 12, 7",
       "url": "https://doi.org/10.1038/s41597-024-04298-6"
     },
@@ -210,7 +211,7 @@ window.SITE_CONTENT = {
     {
       "id": "perception",
       "category": "progress",
-      "title": "Perception of social network relationships among adolescents",
+      "title": "Seeing less than there is: Misperceptions of social network structure",
       "authors": "P. Brañas-Garza, J. Kovářík, F. Mengel & M. Vasco"
     },
     {
@@ -264,8 +265,8 @@ window.SITE_CONTENT = {
         "es": "Experimentos en colegios"
       },
       "caption": {
-        "en": "Lab-in-the-field sessions in Spanish schools.",
-        "es": "Sesiones de experimentos de laboratorio en campo en colegios españoles."
+        "en": "Lab-in-the-field sessions in Spanish schools (2022).",
+        "es": "Sesiones de experimentos de laboratorio en campo en colegios españoles (2022)."
       },
       "alt": {
         "en": "An experimental session in a school classroom in Spain",
@@ -278,17 +279,17 @@ window.SITE_CONTENT = {
         "en": "Los Angeles",
         "es": "Los Ángeles"
       },
-      "topic": {
-        "en": "Developmental experiments",
-        "es": "Experimentos sobre el desarrollo"
+      "topic": {   
+        "en": "Experiments in schools",
+        "es": "Experimentos en colegios"
       },
       "caption": {
-        "en": "Experimental activities with children at LABEL–USC.",
-        "es": "Actividades experimentales con niños en LABEL–USC."
+        "en": "Experimental activities with children (K12).",
+        "es": "Actividades experimentales con niños (preescolar)."
       },
       "alt": {
-        "en": "Children taking part in experimental activities at LABEL–USC",
-        "es": "Niños participando en actividades experimentales en LABEL–USC"
+        "en": "Children taking part in experimental activities from LABEL",
+        "es": "Niños participando en actividades experimentales de LABEL"
       }
     },
     {
@@ -302,8 +303,8 @@ window.SITE_CONTENT = {
         "es": "Experimentos con universitarios"
       },
       "caption": {
-        "en": "A network experiment on leadership, inequality, and protest participation.",
-        "es": "Un experimento en redes sobre liderazgo, desigualdad y participación en protestas."
+        "en": "A network experiment on leadership, inequality, and protest participation (2026).",
+        "es": "Un experimento en redes sobre liderazgo, desigualdad y participación en protestas (2026)."
       },
       "alt": {
         "en": "University students taking part in a classroom experiment in Madagascar",
@@ -321,12 +322,12 @@ window.SITE_CONTENT = {
         "es": "Implementación experimental"
       },
       "caption": {
-        "en": "Implementing experimental tasks in a school classroom.",
-        "es": "Implementación de tareas experimentales en el aula de un colegio."
+        "en": "Implementing experimental tasks in a school classroom (2023).",
+        "es": "Implementación de tareas experimentales en colegios (2023)."
       },
       "alt": {
         "en": "An experimental activity in a school classroom in Spain",
-        "es": "Una actividad experimental en un aula de un colegio en España"
+        "es": "Una actividad experimental en un colegio en España"
       }
     },
     {
@@ -344,8 +345,8 @@ window.SITE_CONTENT = {
         "es": "Investigación experimental en Los Ángeles."
       },
       "alt": {
-        "en": "A room used for experimental activities at LABEL–USC",
-        "es": "Una sala utilizada para actividades experimentales en LABEL–USC"
+        "en": "Lab at USC for experimental activities",
+        "es": "Laboratorio en USC para actividades experimentales"
       }
     },
     {
