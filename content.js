@@ -203,49 +203,49 @@ window.SITE_CONTENT = {
       "url": ""
     },
     {
-      "category": "working",
+      "category": "to-submit",
       "title": "Learning and information transfer: Evidence from an intuitive physics task",
       "authors": "I. Brocas, J. D. Carrillo, M. Derex & M. Vasco",
       "url": ""
     },
     {
       "id": "perception",
-      "category": "progress",
+      "category": "to-submit",
       "title": "Seeing less than there is: Misperceptions of social network structure",
       "authors": "P. Brañas-Garza, J. Kovářík, F. Mengel & M. Vasco"
     },
     {
-      "category": "progress",
+      "category": "writing",
       "title": "Gender differences in friendship networks (across the globe)",
       "authors": "J. Kovářík, C.-S. Hsieh & M. Vasco"
     },
     {
-      "category": "progress",
+      "category": "writing",
       "title": "Networked decision-making and social learning in children and adolescents",
       "authors": "I. Brocas, J. D. Carrillo & M. Vasco"
     },
     {
-      "category": "progress",
+      "category": "writing",
       "title": "The microfoundations of herding behavior: Learning, signals, and connectivity in children’s networks",
       "authors": "I. Brocas, J. D. Carrillo, U. Rios & M. Vasco"
     },
     {
-      "category": "progress",
+      "category": "collected",
       "title": "Development of protective behavior and contagion reasoning in a dynamic network SIS game",
       "authors": "I. Brocas, J. D. Carrillo & M. Vasco"
     },
     {
-      "category": "progress",
+      "category": "collecting",
       "title": "Friendship, enmity, and in-between: Dimensions of social relationships across development",
       "authors": "I. Brocas, J. D. Carrillo & M. Vasco"
     },
     {
-      "category": "progress",
+      "category": "collected",
       "title": "Measuring theory of mind in children and adolescents",
       "authors": "I. Brocas, J. D. Carrillo & M. Vasco"
     },
     {
-      "category": "progress",
+      "category": "collected",
       "title": "Leadership legitimacy, inequality, and protests: A network experiment with university students in Madagascar",
       "authors": "I. Brocas, J. D. Carrillo, M. Rajaomason & M. Vasco"
     }
