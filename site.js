@@ -11,6 +11,56 @@
   const photoStates = new WeakMap();
   const local = value => typeof value === 'object' ? value[language] : value;
   const node = (tag, className, text) => {const el = document.createElement(tag); if(className) el.className = className; if(text !== undefined) el.textContent = text; return el;};
+  // Link institutional names while preserving the wording in content.js.
+  const institutionLinks = new Map([
+    ['University of Southern California (USC)','https://www.usc.edu/'],
+    ['University of Southern California','https://www.usc.edu/'],
+    ['Universidad del Sur de California','https://www.usc.edu/'],
+    ['USC','https://www.usc.edu/'],
+    ['LABEL',data.labelUrl || 'https://label-laboratory.org/'],
+    ['Loyola Behavioral Lab','https://loyolabehlab.org/'],
+    ['LoyolaBehLab','https://loyolabehlab.org/'],
+    ['LoyolaBehLAB','https://loyolabehlab.org/'],
+    ['Loyola Andalucía University','https://www.uloyola.es/'],
+    ['Universidad Loyola Andalucía','https://www.uloyola.es/'],
+    ['Universidad Loyola Andalucia','https://www.uloyola.es/'],
+    ['Loyola','https://www.uloyola.es/'],
+    ['University of the Basque Country','https://www.ehu.eus/en/en-home'],
+    ['Universidad del País Vasco','https://www.ehu.eus/en/en-home'],
+    ['University of Essex','https://www.essex.ac.uk/'],
+    ['Universidad de Essex','https://www.essex.ac.uk/'],
+    ['Fundación Cotec','https://cotec.es/'],
+    ['FPU','https://www.ciencia.gob.es/Universidades/FPU.html'],
+    ['Caltech','https://www.caltech.edu/']
+  ]);
+  const institutionPattern = new RegExp(
+    Array.from(institutionLinks.keys()).sort((a,b)=>b.length-a.length)
+      .map(name=>name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|'),'gu'
+  );
+  function linkInstitutions(container) {
+    const walker=document.createTreeWalker(container,NodeFilter.SHOW_TEXT);
+    const textNodes=[];
+    while(walker.nextNode()) {
+      if(!walker.currentNode.parentElement.closest('a')) textNodes.push(walker.currentNode);
+    }
+    const isWord=character=>Boolean(character && /[\p{L}\p{N}_]/u.test(character));
+    textNodes.forEach(textNode=>{
+      const original=textNode.data;
+      const matches=Array.from(original.matchAll(institutionPattern)).filter(match=>
+        !isWord(original[match.index-1]) && !isWord(original[match.index+match[0].length])
+      );
+      if(!matches.length) return;
+      const fragment=document.createDocumentFragment();let cursor=0;
+      matches.forEach(match=>{
+        fragment.append(document.createTextNode(original.slice(cursor,match.index)));
+        const link=node('a','inline-resource',match[0]);
+        link.href=institutionLinks.get(match[0]);link.target='_blank';link.rel='noopener';
+        fragment.append(link);cursor=match.index+match[0].length;
+      });
+      fragment.append(document.createTextNode(original.slice(cursor)));
+      textNode.replaceWith(fragment);
+    });
+  }
   function updatePhoto(image,placeholder,path,description,position='50% 50%') {
     image.alt=description||'';
     const setState=loaded=>{image.hidden=!loaded;placeholder.hidden=loaded;};
@@ -104,7 +154,7 @@
     data.featured.forEach(project => {
       const article = node('article','featured-card');
       const paper = data.papers.find(p => p.id === project.id);
-      article.append(node('p','paper-kind',data.languages[language].groupHeadings[categories.indexOf(paper.category)]), node('h3','',project.title), node('p','',project[language]));
+      article.append(node('p','paper-kind',data.languages[language].groupHeadings[categories.indexOf(paper.category)]), node('h3','',paper.title), node('p','',project[language]));
       const link = node('a','',`${data.languages[language].nav[1]} ↗`);
       link.href = '#paper-' + project.id;
       link.addEventListener('click', () => {filter = 'all';renderPapers();});
@@ -130,7 +180,10 @@
         content.append(node('h3','',p.title),node('p','paper-authors',local(p.authors)));
         if(p.venue) content.append(node('p','paper-venue',p.venue));
         article.append(node('span','paper-year',p.year||'—'),content);
-        if(p.url){const link=node('a','paper-link',texts.paperLink+' ↗');link.href=p.url;link.target='_blank';link.rel='noopener';article.append(link);}
+        const earlierBullyingVersion=!p.url && p.id==='bullying';
+        const paperUrl=p.url || (earlierBullyingVersion?'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4912811':'');
+        const linkLabel=p.linkLabel?local(p.linkLabel):(earlierBullyingVersion?(language==='es'?'Versión anterior (SSRN)':'Earlier version (SSRN)'):texts.paperLink);
+        if(paperUrl){const link=node('a','paper-link',linkLabel+' ↗');link.href=paperUrl;link.target='_blank';link.rel='noopener';article.append(link);}
         group.append(article);
       });
       target.append(group);
@@ -155,7 +208,17 @@
     Array.from(dots.children).forEach((button,i)=>{button.setAttribute('aria-pressed',String(i===slide));button.setAttribute('aria-label',`${texts.photoGo} ${i+1}: ${local(data.photos[i].location)}`);});
   }
   function changeSlide(direction,manual=true){if(manual)players.field?.pause();slide=(slide+direction+data.photos.length)%data.photos.length;renderSlide();}
+  function academicEvent(photo) {
+    const event=data.conferences.find(item=>item.id===photo.event);
+    return event || {
+      title:photo.title || (language==='es'?'Actividad académica':'Academic activity'),
+      location:photo.location,
+      date:photo.date,
+      role:photo.role
+    };
+  }
   function conferenceDate(event) {
+    if(!event.date) return '';
     return new Intl.DateTimeFormat(language==='es'?'es-ES':'en-US',{month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(event.date+'-01T12:00:00Z'));
   }
   function conferencePlace(event) {
@@ -163,16 +226,18 @@
   }
   function renderAcademicSlide() {
     const photo=data.academicPhotos[academicSlide];
-    const event=data.conferences.find(item=>item.id===photo.event);
+    const event=academicEvent(photo);
     const texts=data.languages[language];
     const image=document.getElementById('academic-photo');
     const placeholder=document.getElementById('academic-placeholder');
     updatePhoto(image,placeholder,photo.image,local(photo.alt),photo.position);
-    document.getElementById('academic-placeholder-title').textContent=event.title;
+    document.getElementById('academic-placeholder-title').textContent=local(event.title);
     document.getElementById('academic-placeholder-location').textContent=conferencePlace(event);
-    document.getElementById('academic-slide-date').textContent=conferenceDate(event);
-    document.getElementById('academic-slide-title').textContent=event.title;
-    document.getElementById('academic-slide-location').textContent=conferencePlace(event);
+    const date=document.getElementById('academic-slide-date');
+    date.textContent=conferenceDate(event);date.hidden=!event.date;
+    document.getElementById('academic-slide-title').textContent=local(event.title);
+    const place=document.getElementById('academic-slide-location');
+    place.textContent=conferencePlace(event);place.hidden=!place.textContent;
     const role=document.getElementById('academic-slide-role');
     role.hidden=!event.role;
     role.textContent=event.role?texts[event.role]:'';
@@ -186,10 +251,12 @@
       data.academicPhotos.forEach((item,index)=>{const button=node('button');button.type='button';button.addEventListener('click',()=>{players.academic?.pause();academicSlide=index;renderAcademicSlide();});dots.append(button);});
     }
     Array.from(dots.children).forEach((button,index)=>{
-      const item=data.conferences.find(event=>event.id===data.academicPhotos[index].event);
+      const item=academicEvent(data.academicPhotos[index]);
       button.setAttribute('aria-pressed',String(index===academicSlide));
-      button.setAttribute('aria-label',`${texts.photoGo} ${index+1}: ${item.title}`);
+      button.setAttribute('aria-label',`${texts.photoGo} ${index+1}: ${local(item.title)}`);
     });
+    linkInstitutions(document.getElementById('academic-slide-title'));
+    linkInstitutions(document.getElementById('academic-slide-location'));
   }
   function changeAcademicSlide(direction,manual=true){if(manual)players.academic?.pause();academicSlide=(academicSlide+direction+data.academicPhotos.length)%data.academicPhotos.length;renderAcademicSlide();}
   function renderActivities() {
@@ -213,6 +280,7 @@
     document.querySelectorAll('[data-text]').forEach(el=>el.textContent=texts[el.dataset.text]);
     document.querySelectorAll('[data-html]').forEach(el=>el.innerHTML=texts[el.dataset.html]);
     document.querySelectorAll('[data-nav]').forEach(el=>el.textContent=texts.nav[Number(el.dataset.nav)]);
+    document.querySelectorAll('.hero-copy .intro,.hero-copy .hero-detail,.background [data-text="background"],.background [data-html="background"],.background [data-text="serviceText"],.background [data-html="serviceText"]').forEach(linkInstitutions);
     document.getElementById('main-nav').setAttribute('aria-label',language==='es'?'Navegación principal':'Main navigation');
     document.querySelectorAll('[data-language]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.language===language)));
     document.getElementById('cv-link').href=data.cv;
@@ -223,6 +291,7 @@
     const portrait=document.getElementById('portrait-image');
     updatePhoto(portrait,document.getElementById('portrait-placeholder'),data.portrait,'Mónica Vasco');
     renderFixedPhotos();renderFeatured();renderPapers();renderSlide();renderActivities();
+    document.querySelectorAll('.fixed-photo figcaption').forEach(linkInstitutions);
     players.field?.render();players.academic?.render();
     const teaching=document.getElementById('teaching-list');teaching.replaceChildren();
     data.teaching.forEach(course=>{const article=node('article','teaching-item');article.append(node('h3','',local(course.title)),node('p','course-role',texts[course.role]),node('p','',course.years+' · '+texts[course.language]));teaching.append(article);});
