@@ -159,7 +159,7 @@ window.SITE_CONTENT = {
   "featured": [
     {
       "id": "bullying",
-      "title": "The Social Footprint of Bullying: Evidence from Signed Peer Nominations and Tie Strength",
+      "title": "The social footprint of bullying: Evidence from signed peer nominations and tie strength",
       "en": "Understanding bullying through peer nominations, the sign of social relationships, and the strength of interpersonal ties.",
       "es": "Comprender el acoso escolar a través de las nominaciones entre iguales, el signo de las relaciones y la intensidad de los vínculos."
     },
@@ -198,7 +198,7 @@ window.SITE_CONTENT = {
     {
       "id": "bullying",
       "category": "working",
-      "title": "The Social Footprint of Bullying: Evidence from Signed Peer Nominations and Tie Strength",
+      "title": "The social footprint of bullying: Evidence from signed peer nominations and tie strength",
       "authors": "P. Brañas-Garza, A. Cabrales, J. Kovářík & M. Vasco",
       "url": ""
     },
@@ -216,7 +216,7 @@ window.SITE_CONTENT = {
     },
     {
       "category": "progress",
-      "title": "Gender Differences in Friendship Networks (Across the Globe)",
+      "title": "Gender differences in friendship networks (across the globe)",
       "authors": "J. Kovářík, C.-S. Hsieh & M. Vasco"
     },
     {
@@ -246,7 +246,7 @@ window.SITE_CONTENT = {
     },
     {
       "category": "progress",
-      "title": "Leadership Legitimacy, Inequality, and Protests: A Network Experiment with University Students in Madagascar",
+      "title": "Leadership legitimacy, inequality, and protests: A network experiment with university students in Madagascar",
       "authors": "I. Brocas, J. D. Carrillo, M. Rajaomason & M. Vasco"
     }
   ],
