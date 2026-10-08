@@ -6,8 +6,66 @@
   let language = new URLSearchParams(location.search).get('lang') === 'es' ? 'es' : 'en';
   let filter = 'all';
   let slide = 0;
+  let academicSlide = 0;
+  const players = {field:null,academic:null};
   const local = value => typeof value === 'object' ? value[language] : value;
   const node = (tag, className, text) => {const el = document.createElement(tag); if(className) el.className = className; if(text !== undefined) el.textContent = text; return el;};
+  function updatePhoto(image,placeholder,path,description,onStatus=()=>{}) {
+    image.alt=description||'';
+    const setState=loaded=>{image.hidden=!loaded;placeholder.hidden=loaded;onStatus(loaded);};
+    image.onload=()=>setState(true);
+    image.onerror=()=>setState(false);
+    if(!path){image.removeAttribute('src');setState(false);return;}
+    if(image.getAttribute('src')===path && image.complete){setState(image.naturalWidth>0);return;}
+    image.hidden=false;placeholder.hidden=false;onStatus(false);
+    if(image.getAttribute('src')!==path) image.src=path;
+  }
+  function renderFixedPhotos() {
+    document.querySelectorAll('[data-fixed-photo]').forEach(figure=>{
+      const photo=data.fixedPhotos[figure.dataset.fixedPhoto];
+      if(!photo){figure.hidden=true;return;}
+      if(!figure.children.length){
+        const frame=node('div','fixed-photo-frame');
+        const image=node('img');image.loading='lazy';image.decoding='async';
+        const placeholder=node('div','fixed-photo-placeholder');placeholder.setAttribute('aria-hidden','true');
+        frame.append(image,placeholder);figure.append(frame,node('figcaption'));
+      }
+      figure.querySelector('figcaption').textContent=local(photo.caption);
+      figure.querySelector('img').style.objectPosition=photo.position||'50% 50%';
+      const placeholder=figure.querySelector('.fixed-photo-placeholder');
+      placeholder.textContent=local(photo.caption);
+      updatePhoto(figure.querySelector('img'),placeholder,photo.image,local(photo.alt));
+    });
+  }
+  function createAutoplay(carouselId,buttonId,countId,advance) {
+    const carousel=document.getElementById(carouselId);
+    const button=document.getElementById(buttonId);
+    const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
+    let enabled=!motion.matches;
+    let inView=!('IntersectionObserver' in window);
+    let timer=null;
+    function repaint(){
+      const texts=data.languages[language];
+      button.textContent=enabled?texts.photoPause:texts.photoPlay;
+      button.setAttribute('aria-label',enabled?texts.photoPauseLabel:texts.photoPlayLabel);
+      document.getElementById(countId).setAttribute('aria-live',enabled?'off':'polite');
+    }
+    function updateTimer(){
+      if(timer!==null){window.clearInterval(timer);timer=null;}
+      if(enabled && inView && document.visibilityState!=='hidden') timer=window.setInterval(()=>advance(1,false),6000);
+    }
+    function pause(){enabled=false;repaint();updateTimer();}
+    button.addEventListener('click',()=>{enabled=!enabled;repaint();updateTimer();});
+    carousel.addEventListener('focusin',event=>{if(event.target!==button)pause();});
+    document.addEventListener('visibilitychange',updateTimer);
+    motion.addEventListener('change',()=>{if(motion.matches)pause();});
+    if('IntersectionObserver' in window){
+      const observer=new IntersectionObserver(entries=>{inView=entries.some(entry=>entry.isIntersecting && entry.intersectionRatio>=.15);updateTimer();},{threshold:[0,.15]});
+      observer.observe(carousel);
+    }
+    repaint();updateTimer();
+    return {pause,render:repaint};
+  }
   function renderFeatured() {
     const target = document.getElementById('featured-list');
     target.replaceChildren();
@@ -50,10 +108,8 @@
   function renderSlide() {
     const photo=data.photos[slide];const texts=data.languages[language];
     const image=document.getElementById('field-photo');
-    image.hidden=!photo.image;
-    if(photo.image) image.src=photo.image;else image.removeAttribute('src');
-    image.alt=local(photo.alt);
-    document.getElementById('photo-placeholder').hidden=Boolean(photo.image);
+    image.style.objectPosition=photo.position||'50% 50%';
+    updatePhoto(image,document.getElementById('photo-placeholder'),photo.image,local(photo.alt));
     document.getElementById('photo-place').textContent=local(photo.location);
     document.getElementById('photo-subject').textContent=local(photo.topic);
     document.getElementById('slide-location').textContent=local(photo.location);
@@ -64,10 +120,63 @@
     document.getElementById('photo-prev').setAttribute('aria-label',texts.photoPrev);
     document.getElementById('photo-next').setAttribute('aria-label',texts.photoNext);
     const dots=document.getElementById('slide-dots');
-    if(dots.children.length!==data.photos.length){dots.replaceChildren();data.photos.forEach((p,i)=>{const b=node('button');b.type='button';b.addEventListener('click',()=>{slide=i;renderSlide();});dots.append(b);});}
+    if(dots.children.length!==data.photos.length){dots.replaceChildren();data.photos.forEach((p,i)=>{const b=node('button');b.type='button';b.addEventListener('click',()=>{players.field?.pause();slide=i;renderSlide();});dots.append(b);});}
     Array.from(dots.children).forEach((button,i)=>{button.setAttribute('aria-pressed',String(i===slide));button.setAttribute('aria-label',`${texts.photoGo} ${i+1}: ${local(data.photos[i].location)}`);});
   }
-  function changeSlide(direction){slide=(slide+direction+data.photos.length)%data.photos.length;renderSlide();}
+  function changeSlide(direction,manual=true){if(manual)players.field?.pause();slide=(slide+direction+data.photos.length)%data.photos.length;renderSlide();}
+  function conferenceDate(event) {
+    return new Intl.DateTimeFormat(language==='es'?'es-ES':'en-US',{month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(event.date+'-01T12:00:00Z'));
+  }
+  function conferencePlace(event) {
+    return [event.venue,local(event.location)].filter(Boolean).join(' · ');
+  }
+  function renderAcademicSlide() {
+    const photo=data.academicPhotos[academicSlide];
+    const event=data.conferences.find(item=>item.id===photo.event);
+    const texts=data.languages[language];
+    const image=document.getElementById('academic-photo');
+    image.style.objectPosition=photo.position||'50% 50%';
+    const placeholder=document.getElementById('academic-placeholder');
+    updatePhoto(image,placeholder,photo.image,local(photo.alt));
+    document.getElementById('academic-placeholder-title').textContent=event.title;
+    document.getElementById('academic-placeholder-location').textContent=conferencePlace(event);
+    document.getElementById('academic-slide-date').textContent=conferenceDate(event);
+    document.getElementById('academic-slide-title').textContent=event.title;
+    document.getElementById('academic-slide-location').textContent=conferencePlace(event);
+    const role=document.getElementById('academic-slide-role');
+    role.hidden=!event.role;
+    role.textContent=event.role?texts[event.role]:'';
+    document.getElementById('academic-count').textContent=`${academicSlide+1} ${texts.photoOf} ${data.academicPhotos.length}`;
+    document.getElementById('academic-carousel').setAttribute('aria-label',texts.activitiesRegion);
+    document.getElementById('academic-prev').setAttribute('aria-label',texts.photoPrev);
+    document.getElementById('academic-next').setAttribute('aria-label',texts.photoNext);
+    const dots=document.getElementById('academic-dots');
+    if(dots.children.length!==data.academicPhotos.length){
+      dots.replaceChildren();
+      data.academicPhotos.forEach((item,index)=>{const button=node('button');button.type='button';button.addEventListener('click',()=>{players.academic?.pause();academicSlide=index;renderAcademicSlide();});dots.append(button);});
+    }
+    Array.from(dots.children).forEach((button,index)=>{
+      const item=data.conferences.find(event=>event.id===data.academicPhotos[index].event);
+      button.setAttribute('aria-pressed',String(index===academicSlide));
+      button.setAttribute('aria-label',`${texts.photoGo} ${index+1}: ${item.title}`);
+    });
+  }
+  function changeAcademicSlide(direction,manual=true){if(manual)players.academic?.pause();academicSlide=(academicSlide+direction+data.academicPhotos.length)%data.academicPhotos.length;renderAcademicSlide();}
+  function renderActivities() {
+    const target=document.getElementById('conference-list');
+    const texts=data.languages[language];
+    target.replaceChildren();
+    document.querySelector('.conference-total').textContent=`(${data.conferences.length})`;
+    data.conferences.forEach(event=>{
+      const item=node('li','conference-item');
+      const date=node('time','conference-date',conferenceDate(event));date.dateTime=event.date;
+      const content=node('div','conference-content');
+      content.append(node('h3','',event.title),node('p','',conferencePlace(event)));
+      if(event.role) content.append(node('span','event-role',texts[event.role]));
+      item.append(date,content);target.append(item);
+    });
+    renderAcademicSlide();
+  }
   function render() {
     const texts=data.languages[language];document.documentElement.lang=language;
     document.title=language==='es'?'Mónica Vasco | Economía experimental y redes sociales':'Mónica Vasco | Experimental Economics & Social Networks';
@@ -81,11 +190,9 @@
     document.getElementById('email-link').textContent=data.email+' ↗';
     document.getElementById('orcid-link').href=data.orcid;
     const portrait=document.getElementById('portrait-image');
-    portrait.hidden=!data.portrait;
-    document.getElementById('portrait-placeholder').hidden=Boolean(data.portrait);
-    if(data.portrait) portrait.src=data.portrait;
-    document.querySelector('.portrait .caption-sub').hidden=Boolean(data.portrait);
-    renderFeatured();renderPapers();renderSlide();
+    updatePhoto(portrait,document.getElementById('portrait-placeholder'),data.portrait,'Mónica Vasco',loaded=>{document.querySelector('.portrait .caption-sub').hidden=loaded;});
+    renderFixedPhotos();renderFeatured();renderPapers();renderSlide();renderActivities();
+    players.field?.render();players.academic?.render();
     const teaching=document.getElementById('teaching-list');teaching.replaceChildren();
     data.teaching.forEach(course=>{const article=node('article','teaching-item');article.append(node('h3','',local(course.title)),node('p','course-role',texts[course.role]),node('p','',course.years+' · '+texts[course.language]));teaching.append(article);});
   }
@@ -98,5 +205,14 @@
   let touchStart=null;
   carousel.addEventListener('touchstart',event=>{touchStart={x:event.changedTouches[0].clientX,y:event.changedTouches[0].clientY};},{passive:true});
   carousel.addEventListener('touchend',event=>{if(!touchStart)return;const dx=event.changedTouches[0].clientX-touchStart.x;const dy=event.changedTouches[0].clientY-touchStart.y;if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy))changeSlide(dx<0?1:-1);touchStart=null;},{passive:true});
+  document.getElementById('academic-prev').addEventListener('click',()=>changeAcademicSlide(-1));
+  document.getElementById('academic-next').addEventListener('click',()=>changeAcademicSlide(1));
+  const academicCarousel=document.getElementById('academic-carousel');
+  academicCarousel.addEventListener('keydown',event=>{if(event.key==='ArrowRight'||event.key==='ArrowLeft'){event.preventDefault();changeAcademicSlide(event.key==='ArrowRight'?1:-1);}});
+  let academicTouchStart=null;
+  academicCarousel.addEventListener('touchstart',event=>{academicTouchStart={x:event.changedTouches[0].clientX,y:event.changedTouches[0].clientY};},{passive:true});
+  academicCarousel.addEventListener('touchend',event=>{if(!academicTouchStart)return;const dx=event.changedTouches[0].clientX-academicTouchStart.x;const dy=event.changedTouches[0].clientY-academicTouchStart.y;if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy))changeAcademicSlide(dx<0?1:-1);academicTouchStart=null;},{passive:true});
+  players.field=createAutoplay('carousel','photo-play','slide-count',changeSlide);
+  players.academic=createAutoplay('academic-carousel','academic-play','academic-count',changeAcademicSlide);
   render();
 })();

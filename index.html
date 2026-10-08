@@ -16,7 +16,7 @@
     <a class="wordmark" href="#about">Mónica Vasco<span class="wordmark-dot">.</span></a>
     <nav aria-label="Main navigation" id="main-nav">
       <a href="#about" data-nav="0">About</a><a href="#research" data-nav="1">Research</a>
-      <a href="#fieldwork" data-nav="2">Fieldwork</a><a href="#teaching" data-nav="3">Teaching</a><a href="#contact" data-nav="4">Contact</a>
+      <a href="#fieldwork" data-nav="2">Fieldwork</a><a href="#teaching" data-nav="3">Teaching</a><a href="#activities" data-nav="4">Activities</a><a href="#contact" data-nav="5">Contact</a>
     </nav>
     <div class="language" role="group" aria-label="Language / Idioma">
       <button type="button" data-language="en" aria-pressed="true">EN</button><span aria-hidden="true">/</span><button type="button" data-language="es" aria-pressed="false">ES</button>
@@ -39,7 +39,10 @@
       </figure>
     </section>
     <section class="featured section-width" aria-labelledby="featured-title">
-      <div class="section-heading"><p class="eyebrow" data-text="featuredLabel">A closer look</p><h2 id="featured-title" data-text="featured">Selected research</h2><p data-text="featuredIntro"></p></div>
+      <div class="photo-intro-grid">
+        <div class="section-heading"><p class="eyebrow" data-text="featuredLabel">A closer look</p><h2 id="featured-title" data-text="featured">Selected research</h2><p data-text="featuredIntro"></p></div>
+        <figure class="fixed-photo" data-fixed-photo="research"></figure>
+      </div>
       <div id="featured-list" class="featured-grid"></div>
     </section>
     <section id="research" class="research section-width" aria-labelledby="research-title">
@@ -50,10 +53,13 @@
     </section>
     <section id="fieldwork" class="fieldwork" aria-labelledby="fieldwork-title">
       <div class="section-width">
-        <div class="section-heading"><p class="eyebrow" data-text="fieldLabel">Beyond the laboratory</p><h2 id="fieldwork-title" data-text="fieldTitle">Experiments in the field</h2><p data-text="fieldIntro"></p></div>
+        <div class="photo-intro-grid">
+          <div class="section-heading"><p class="eyebrow" data-text="fieldLabel">Beyond the laboratory</p><h2 id="fieldwork-title" data-text="fieldTitle">Experiments in the field</h2><p data-text="fieldIntro"></p></div>
+          <figure class="fixed-photo" data-fixed-photo="fieldwork"></figure>
+        </div>
         <div class="carousel" id="carousel" role="region" aria-roledescription="carousel" aria-label="Fieldwork photo carousel" tabindex="0">
           <figure class="slide"><div class="photo-stage"><img id="field-photo" hidden alt=""><div id="photo-placeholder" class="photo-placeholder"><span class="photo-placeholder-label" data-text="photoPending">Photograph to be added</span><span class="photo-place" id="photo-place"></span><span class="photo-subject" id="photo-subject"></span></div></div><figcaption class="slide-caption"><div><span class="eyebrow" id="slide-location"></span><h3 id="slide-topic"></h3></div><p id="slide-description"></p></figcaption></figure>
-          <div class="carousel-controls"><div class="slide-dots" id="slide-dots"></div><div class="carousel-arrows"><span id="slide-count" aria-live="polite"></span><button type="button" id="photo-prev" aria-label="Previous photograph">←</button><button type="button" id="photo-next" aria-label="Next photograph">→</button></div></div>
+          <div class="carousel-controls"><div class="slide-dots" id="slide-dots"></div><div class="carousel-arrows"><span id="slide-count" aria-live="off"></span><button type="button" class="carousel-play" id="photo-play" aria-label="Pause the photo slideshow">Pause</button><button type="button" id="photo-prev" aria-label="Previous photograph">←</button><button type="button" id="photo-next" aria-label="Next photograph">→</button></div></div>
         </div>
       </div>
     </section>
@@ -63,8 +69,35 @@
       <p class="teaching-institution">Universidad Loyola Andalucía</p>
     </section>
     <section class="background section-width" aria-labelledby="background-title">
-      <div><p class="eyebrow" data-text="academicLabel">Academic background</p><h2 id="background-title" data-text="backgroundTitle">From Córdoba to Los Angeles</h2></div>
+      <div><p class="eyebrow" data-text="academicLabel">Academic background</p><h2 id="background-title" data-text="backgroundTitle">From Córdoba to Los Angeles</h2><figure class="fixed-photo background-photo" data-fixed-photo="background"></figure></div>
       <div><p data-text="background"></p><h3 data-text="service">Academic activities & applied research</h3><p data-text="serviceText"></p><a href="https://online.flippingbook.com/view/529605865/" target="_blank" rel="noopener">Cotec: ¿Toman los profesores decisiones sesgadas? ↗</a></div>
+    </section>
+    <section id="activities" class="activities section-width" aria-labelledby="activities-title">
+      <div class="section-heading">
+        <p class="eyebrow" data-text="activitiesLabel">Academic exchange</p>
+        <h2 id="activities-title" data-text="activitiesTitle">Conferences &amp; workshops</h2>
+        <p data-text="activitiesIntro"></p>
+      </div>
+      <div class="carousel academic-carousel" id="academic-carousel" role="region" aria-roledescription="carousel" aria-label="Academic activities photo carousel" tabindex="0">
+        <figure class="slide">
+          <div class="photo-stage academic-photo-stage">
+            <img id="academic-photo" hidden alt="" loading="lazy" decoding="async">
+            <div id="academic-placeholder" class="photo-placeholder"><span class="photo-place" id="academic-placeholder-title"></span><span class="photo-subject" id="academic-placeholder-location"></span></div>
+          </div>
+          <figcaption class="academic-caption">
+            <div><p class="eyebrow" id="academic-slide-date"></p><h3 id="academic-slide-title"></h3><p id="academic-slide-location"></p></div>
+            <span class="event-role" id="academic-slide-role" hidden></span>
+          </figcaption>
+        </figure>
+        <div class="carousel-controls">
+          <div class="slide-dots" id="academic-dots"></div>
+          <div class="carousel-arrows"><span id="academic-count" aria-live="off"></span><button type="button" class="carousel-play" id="academic-play" aria-label="Pause the photo slideshow">Pause</button><button type="button" id="academic-prev" aria-label="Previous photograph">←</button><button type="button" id="academic-next" aria-label="Next photograph">→</button></div>
+        </div>
+      </div>
+      <details class="conference-history">
+        <summary><span data-text="activitiesAll">All conferences and workshops</span> <span class="conference-total">(16)</span></summary>
+        <ol id="conference-list" class="conference-list"></ol>
+      </details>
     </section>
     <section id="contact" class="contact" aria-labelledby="contact-title"><div class="section-width contact-inner"><div><p class="eyebrow" data-text="contactLabel">Get in touch</p><h2 id="contact-title" data-text="contactTitle">Let’s connect.</h2><p data-text="contactText"></p></div><div class="contact-links"><a id="email-link" href="mailto:movaru09@gmail.com">movaru09@gmail.com ↗</a><a id="orcid-link" href="https://orcid.org/0000-0002-3246-9984" target="_blank" rel="noopener">ORCID ↗</a></div></div></section>
   </main>
