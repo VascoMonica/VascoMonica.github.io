@@ -285,7 +285,7 @@ window.SITE_CONTENT = {
       },
       "caption": {
         "en": "Experimental activities with children (K12).",
-        "es": "Actividades experimentales con niños (preescolar)."
+        "es": "Actividades experimentales con niños de educación infantil."
       },
       "alt": {
         "en": "Children taking part in experimental activities from LABEL",
@@ -366,6 +366,25 @@ window.SITE_CONTENT = {
       "alt": {
         "en": "A group photograph at the university in Madagascar",
         "es": "Una fotografía de grupo en la universidad en Madagascar"
+      }
+    },
+    {
+      "image": "photos/madagascar2.jpeg",
+      "location": {
+        "en": "Madagascar",
+        "es": "Madagascar"
+      },
+      "topic": {
+        "en": "Research collaboration",
+        "es": "Colaboración investigadora"
+      },
+      "caption": {
+        "en": "Fieldwork and research collaboration in Madagascar.",
+        "es": "Trabajo de campo y colaboración investigadora en Madagascar."
+      },
+      "alt": {
+        "en": "An academic gathering during fieldwork in Madagascar",
+        "es": "Un encuentro académico durante el trabajo de campo en Madagascar"
       }
     }
   ],
