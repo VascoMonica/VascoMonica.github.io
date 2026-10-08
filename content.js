@@ -197,7 +197,7 @@ window.SITE_CONTENT = {
     },
     {
       "id": "bullying",
-      "category": "working",
+      "category": "submitted",
       "title": "The social footprint of bullying: Evidence from signed peer nominations and tie strength",
       "authors": "P. Brañas-Garza, A. Cabrales, J. Kovářík & M. Vasco",
       "url": ""
