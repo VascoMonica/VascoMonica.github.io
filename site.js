@@ -2,7 +2,12 @@
   'use strict';
   const data = window.SITE_CONTENT;
   if (!data) return;
-  const categories = ['published', 'working', 'progress'];
+  const categories = ['published','submitted','to-submit','writing','collecting','collected'];
+  const researchStageLabels = {
+    en:['Published','Submitted','To be submitted','In writing','Data collection ongoing','Data collected'],
+    es:['Publicados','Enviados','Pendientes de envío','En redacción','Recogiendo datos','Datos recogidos']
+  };
+  const boundFilterButtons = new WeakSet();
   let language = new URLSearchParams(location.search).get('lang') === 'es' ? 'es' : 'en';
   let filter = 'all';
   let slide = 0;
@@ -148,13 +153,45 @@
     repaint();updateTimer();
     return {pause,render:repaint};
   }
+  function researchHeadings() {
+    const headings=data.languages[language].groupHeadings;
+    // Earlier content.js files have three groups; use the six updated defaults.
+    return Array.isArray(headings) && headings.length===categories.length ? headings : researchStageLabels[language];
+  }
+  function researchStageLabel(category) {
+    return researchHeadings()[categories.indexOf(category)] || '';
+  }
+  function renderResearchFilters() {
+    const container=document.querySelector('.filters');
+    const keys=['all',...categories];
+    const existing=Array.from(container.children);
+    if(existing.length!==keys.length || existing.some((button,index)=>button.dataset.filter!==keys[index])) {
+      container.replaceChildren();
+      keys.forEach(key=>{
+        const button=node('button');button.type='button';button.dataset.filter=key;
+        container.append(button);
+      });
+    }
+    const texts=data.languages[language];
+    const labels=Array.isArray(texts.filters) && texts.filters.length===keys.length
+      ? texts.filters : [texts.filters?.[0] || (language==='es'?'Todos':'All research'),...researchHeadings()];
+    container.setAttribute('aria-label',language==='es'?'Filtrar investigación por estado':'Filter research by status');
+    Array.from(container.children).forEach((button,index)=>{
+      button.textContent=labels[index];
+      button.setAttribute('aria-pressed',String(button.dataset.filter===filter));
+      if(!boundFilterButtons.has(button)) {
+        button.addEventListener('click',()=>{filter=button.dataset.filter;renderPapers();});
+        boundFilterButtons.add(button);
+      }
+    });
+  }
   function renderFeatured() {
     const target = document.getElementById('featured-list');
     target.replaceChildren();
     data.featured.forEach(project => {
       const article = node('article','featured-card');
       const paper = data.papers.find(p => p.id === project.id);
-      article.append(node('p','paper-kind',data.languages[language].groupHeadings[categories.indexOf(paper.category)]), node('h3','',paper.title), node('p','',project[language]));
+      article.append(node('p','paper-kind',researchStageLabel(paper.category)), node('h3','',paper.title), node('p','',project[language]));
       const link = node('a','',`${data.languages[language].nav[1]} ↗`);
       link.href = '#paper-' + project.id;
       link.addEventListener('click', () => {filter = 'all';renderPapers();});
@@ -165,13 +202,14 @@
     const target = document.getElementById('paper-list');
     const texts = data.languages[language];
     target.replaceChildren();
-    document.querySelectorAll('[data-filter]').forEach((button,index) => {button.textContent=texts.filters[index];button.setAttribute('aria-pressed',String(button.dataset.filter===filter));});
+    renderResearchFilters();
     let count=0;
     categories.forEach((category,index) => {
       if(filter !== 'all' && filter !== category) return;
       const papers = data.papers.filter(p => p.category === category);
+      if(!papers.length) return;
       const group = node('div','paper-group');
-      group.append(node('h3','group-heading',texts.groupHeadings[index]));
+      group.append(node('h3','group-heading',researchStageLabel(category)));
       papers.forEach(p => {
         count++;
         const article=node('article','paper-row');
@@ -314,7 +352,6 @@
     data.teaching.forEach(course=>{const article=node('article','teaching-item');article.append(node('h3','',local(course.title)),node('p','course-role',texts[course.role]),node('p','',course.years+' · '+texts[course.language]));teaching.append(article);});
   }
   document.querySelectorAll('[data-language]').forEach(button=>button.addEventListener('click',()=>{language=button.dataset.language;render();try{const url=new URL(location.href);url.searchParams.set('lang',language);history.replaceState(null,'',url);}catch(_){}}));
-  document.querySelectorAll('[data-filter]').forEach(button=>button.addEventListener('click',()=>{filter=button.dataset.filter;renderPapers();}));
   document.getElementById('photo-prev').addEventListener('click',()=>changeSlide(-1));
   document.getElementById('photo-next').addEventListener('click',()=>changeSlide(1));
   const carousel=document.getElementById('carousel');
