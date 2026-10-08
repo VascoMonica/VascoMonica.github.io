@@ -631,15 +631,15 @@ window.SITE_CONTENT = {
       }
     },
     "background": {
-      "image": "photos/spain_experiment2.jpg",
+      "image": "photos/cotec2.jpg",
       "position": "50% 50%",
       "caption": {
-        "en": "Experimental fieldwork in schools · Spain",
-        "es": "Trabajo experimental en colegios · España"
+        "en": "Research collaboration · Fundación Cotec",
+        "es": "Colaboración investigadora · Fundación Cotec"
       },
       "alt": {
-        "en": "An experimental session with pupils in a school in Spain",
-        "es": "Una sesión experimental con alumnos en un colegio en España"
+        "en": "Interview at The Cotec Gala 2024",
+        "es": "Entrevista en la gala de la Fundación Cotec 2024"
       }
     }
   },
