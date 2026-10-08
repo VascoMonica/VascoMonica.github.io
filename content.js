@@ -37,7 +37,7 @@ window.SITE_CONTENT = {
       ],
       "fieldLabel": "Beyond the laboratory",
       "fieldTitle": "Lab-in-the-field experiments",
-      "fieldIntro": "Designing and implementing experiments with schools, research teams, and local partners. My fieldwork spans schools and university settings in Spain, Los Angeles, and Madagascar. My experience includes literature reviews, experimental design, programming in oTree, running experimental sessions, data collection, analysis, and academic writing. Beyond conducting sessions, I have coordinated directly with schools, negotiated access, organised fieldwork logistics, and hired research assistants.",
+      "fieldIntro": "Designing and implementing experiments  schools, research teams, and local partners. My fieldwork spans schools and university settings in Spain, Los Angeles, and Madagascar. My experience includes literature reviews, experimental design, programming in oTree, running experimental sessions, data collection, analysis, and academic writing. Beyond conducting sessions, I have coordinated directly with schools, negotiated access, organised fieldwork logistics, and hired research assistants.",
       "photoPending": "Photograph to be added",
       "photoPrev": "Previous photograph",
       "photoNext": "Next photograph",
@@ -247,10 +247,7 @@ window.SITE_CONTENT = {
     {
       "category": "progress",
       "title": "Leadership Legitimacy, Inequality, and Protests: A Network Experiment with University Students in Madagascar",
-      "authors": {
-        "en": "With I. Brocas, J. D. Carrillo, Rajaomason and other collaborators",
-        "es": "Con I. Brocas, J. D. Carrillo, Rajaomason y otros colaboradores"
-      }
+      "authors": "I. Brocas, J. D. Carrillo, M. Rajaomason & M. Vasco"
     }
   ],
   "photos": [
