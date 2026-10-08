@@ -214,7 +214,8 @@
       title:photo.title || (language==='es'?'Actividad académica':'Academic activity'),
       location:photo.location,
       date:photo.date,
-      role:photo.role
+      role:photo.role,
+      roles:photo.roles
     };
   }
   function conferenceDate(event) {
@@ -223,6 +224,23 @@
   }
   function conferencePlace(event) {
     return [event.venue,local(event.location)].filter(Boolean).join(' · ');
+  }
+  // Support several roles per event and the earlier single-role format.
+  function renderEventRoles(target,event) {
+    const defaults={
+      en:{coorganizer:'Co-organizer',oral:'Oral presentation',poster:'Poster presentation'},
+      es:{coorganizer:'Coorganizadora',oral:'Presentación oral',poster:'Presentación de póster'}
+    };
+    const roles=Array.isArray(event.roles)?event.roles:(event.role?[event.role]:[]);
+    const texts=data.languages[language];
+    target.replaceChildren();
+    target.classList.remove('event-role');
+    target.classList.add('event-roles');
+    Array.from(new Set(roles)).forEach(role=>{
+      const label=texts[role] || defaults[language][role];
+      if(label) target.append(node('span','event-role',local(label)));
+    });
+    target.hidden=!target.children.length;
   }
   function renderAcademicSlide() {
     const photo=data.academicPhotos[academicSlide];
@@ -238,9 +256,7 @@
     document.getElementById('academic-slide-title').textContent=local(event.title);
     const place=document.getElementById('academic-slide-location');
     place.textContent=conferencePlace(event);place.hidden=!place.textContent;
-    const role=document.getElementById('academic-slide-role');
-    role.hidden=!event.role;
-    role.textContent=event.role?texts[event.role]:'';
+    renderEventRoles(document.getElementById('academic-slide-role'),event);
     document.getElementById('academic-count').textContent=`${academicSlide+1} ${texts.photoOf} ${data.academicPhotos.length}`;
     document.getElementById('academic-carousel').setAttribute('aria-label',texts.activitiesRegion);
     document.getElementById('academic-prev').setAttribute('aria-label',texts.photoPrev);
@@ -261,7 +277,6 @@
   function changeAcademicSlide(direction,manual=true){if(manual)players.academic?.pause();academicSlide=(academicSlide+direction+data.academicPhotos.length)%data.academicPhotos.length;renderAcademicSlide();}
   function renderActivities() {
     const target=document.getElementById('conference-list');
-    const texts=data.languages[language];
     target.replaceChildren();
     document.querySelector('.conference-total').textContent=`(${data.conferences.length})`;
     data.conferences.forEach(event=>{
@@ -269,7 +284,9 @@
       const date=node('time','conference-date',conferenceDate(event));date.dateTime=event.date;
       const content=node('div','conference-content');
       content.append(node('h3','',event.title),node('p','',conferencePlace(event)));
-      if(event.role) content.append(node('span','event-role',texts[event.role]));
+      const roles=node('div','event-roles');
+      renderEventRoles(roles,event);
+      if(!roles.hidden) content.append(roles);
       item.append(date,content);target.append(item);
     });
     renderAcademicSlide();

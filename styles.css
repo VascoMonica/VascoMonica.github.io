@@ -95,3 +95,10 @@
 .contact-links a:hover{color:var(--gold)}
 .contact a:focus-visible{outline-color:var(--gold)}
 html[lang="en"] [data-link-language="es"],html[lang="es"] [data-link-language="en"]{display:none}
+
+/* Several participation badges can wrap on small screens. */
+.event-roles{display:flex;flex-wrap:wrap;gap:7px;align-items:flex-start;max-width:100%}
+.conference-content .event-roles{margin-top:9px}
+.conference-content .event-roles .event-role{margin-top:0}
+.academic-caption>.event-roles{justify-content:flex-end;flex-shrink:0}
+@media(max-width:760px){.academic-caption>.event-roles{justify-content:flex-start}}
