@@ -159,13 +159,13 @@ window.SITE_CONTENT = {
   "featured": [
     {
       "id": "bullying",
-      "title": "The social footprint of bullying: Evidence from signed peer nominations and tie strength",
-      "en": "Understanding bullying through peer nominations, the sign of social relationships, and the strength of interpersonal ties.",
-      "es": "Comprender el acoso escolar a través de las nominaciones entre iguales, el signo de las relaciones y la intensidad de los vínculos."
+      "title": "Toxic classes",
+      "en": "Exploring how classroom friendship and hostility networks relate to bullying victim identification, self-reporting, and classmates' participation in peer nominations.",
+      "es": "Explorar cómo las redes de amistad y hostilidad del aula se relacionan con la identificación de víctimas de acoso escolar, el autorreporte y la participación de los compañeros en las nominaciones."
     },
     {
       "id": "perception",
-      "title": "Seeing less than there is: Misperceptions of social network structure",
+      "title": "Systematic misperception of social relationships among adolescents",
       "en": "Studying how adolescents perceive the social relationships around them.",
       "es": "Estudiar cómo los adolescentes perciben las relaciones sociales de su entorno."
     }
@@ -197,21 +197,21 @@ window.SITE_CONTENT = {
     },
     {
       "id": "bullying",
-      "category": "submitted",
-      "title": "The social footprint of bullying: Evidence from signed peer nominations and tie strength",
+      "category": "to-submit",
+      "title": "Toxic classes",
       "authors": "P. Brañas-Garza, A. Cabrales, J. Kovářík & M. Vasco",
       "url": ""
     },
     {
       "category": "to-submit",
-      "title": "Learning and information transfer: Evidence from an intuitive physics task",
+      "title": "Reinventing the wheel",
       "authors": "I. Brocas, J. D. Carrillo, M. Derex & M. Vasco",
       "url": ""
     },
     {
       "id": "perception",
       "category": "to-submit",
-      "title": "Seeing less than there is: Misperceptions of social network structure",
+      "title": "Systematic misperception of social relationships among adolescents",
       "authors": "P. Brañas-Garza, J. Kovářík, F. Mengel & M. Vasco"
     },
     {
